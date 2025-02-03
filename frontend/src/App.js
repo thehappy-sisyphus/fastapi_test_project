@@ -81,38 +81,40 @@ const handleDelete = (itemId) => {
       <h1 className="text-3xl font-bold text-blue-600 mb-6">Items from FastAPI</h1>
   
       {/* Form to Add New Items */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md mb-6">
-        <h2 className="text-xl font-semibold mb-4">Add New Item</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            type="text"
-            name="name"
-            placeholder="Item Name"
-            value={newItem.name}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={newItem.price}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
+      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-xl mx-auto mt-10 mb-10">
+        <h2 className="text-xl font-semibold mb-4 text-center">Add New Item</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="name"
+              placeholder="Item Name"
+              value={newItem.name}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={newItem.price}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus-ring-blue-400"
+            />
+          </div>
           <input
             type="text"
             name="description"
             placeholder="Description"
             value={newItem.description}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
           />
-
-          <div className="block w-full flex justify-center mt-4">
-            <button type="submit" className="p-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+          {/* SUbmit Button */}
+          <div className="flex justify-center">
+            <button type="submit" className="p-3 bg-green-500 text-white rounded hover:bg-green-600 transition">
               <PlusIcon className="h-6 w-6" />
             </button>
           </div>
@@ -121,9 +123,9 @@ const handleDelete = (itemId) => {
   
       {/* Table for Displaying Items */}
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Item List</h2>
+        <h2 className="text-xl font-semibold text-center mb-4">Item List</h2>
         <table className="w-full border border-gray-300 shadow-sm rounded-lg">
-          <thead>
+        <thead className="bg-gray-100 text-black-700 font-semibold">
             <tr className="bg-gray-200 text-left">
               <th className="p-3">id</th>
               <th className="p-3">Item Name</th>
@@ -132,22 +134,32 @@ const handleDelete = (itemId) => {
               <th className="p-3">Actions</th>
             </tr>
           </thead>
-          <tbody>
+<tbody className="divide-y divide-gray-200">
   {items.length > 0 ? (
     items.map((item) => (
-      <tr key={item.id} className="border-t">
-        <td className="p-2 text-gray-400">{item.id}</td>
-        <td className="p-2 font-bold">{item.name}</td>
-        <td className="p-2 text-green-600">${item.price}</td>
-        <td className="p-2 text-gray-600">{item.description}</td>
-        <td className="p-2 flex space-x-2">
+      <tr key={item.id} className="border-t hover:bg-gray-100 transition">
+        <td className="px-6 py-2">{item.id}</td>
+        <td className="px-6 py-2 font-semibold">{item.name}</td>
+        <td className="px-6 py-2 text-green-600">${item.price}</td>
+        <td className="px-6 py-2">{item.description}</td>
+        <td className="px-6 py-2 flex space-x-2">
+          
           {/* Edit Button */}
-          <button className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+          <button 
+            onClick={() => { 
+              handleEdit(item);
+            }}
+            className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
             <PencilIcon className="h-5 w-5" />
           </button>
 
           {/* Delete Button */}
-          <button className="p-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+          <button
+            onClick={() => { 
+              console.log("Delete button clicked for item:", item.id);
+              handleDelete(item.id)
+            }}
+            className="p-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
             <TrashIcon className="h-5 w-5" />
           </button>
         </td>
