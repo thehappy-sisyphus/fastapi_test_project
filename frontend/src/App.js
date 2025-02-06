@@ -10,7 +10,7 @@ function App() {
 
   // Fetch items from FastAPI
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/items/")
+    fetch("https://fastapi-app-1dog.onrender.com/items/")
       .then((response) => response.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -27,7 +27,7 @@ function App() {
   
     if (editingItem) {
       // Update existing item
-      fetch(`http://127.0.0.1:8000/items/${editingItem.id}`, {
+      fetch(`https://fastapi-app-1dog.onrender.com/items/${editingItem.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
@@ -41,7 +41,7 @@ function App() {
         .catch((error) => console.error("Error updating item:", error));
     } else {
       // Add new item
-      fetch("http://127.0.0.1:8000/items/", {
+      fetch("https://fastapi-app-1dog.onrender.com/items/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
@@ -65,7 +65,7 @@ const handleEdit = (item) => {
 
 // Handle Delete Button Click
 const handleDelete = (itemId) => {
-  fetch(`http://127.0.0.1:8000/items/${itemId}`, {
+  fetch(`https://fastapi-app-1dog.onrender.com/items/${itemId}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
