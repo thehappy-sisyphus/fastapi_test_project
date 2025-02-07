@@ -84,7 +84,16 @@ const handleDelete = (itemId) => {
       {/* Form to Add New Items */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-xl mx-auto mt-10 mb-10">
         <h2 className="text-xl font-semibold mb-4 text-center">Add New Item</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form 
+          onSubmit={handleSubmit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault(); // Prevent accidental double submit
+              handleSubmit(e); // Manually triggersubmit
+              }
+            }} 
+          className="space-y-4"
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
               type="text"
@@ -113,7 +122,7 @@ const handleDelete = (itemId) => {
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
           />
-          {/* SUbmit Button */}
+          {/* Submit Button */}
           <div className="flex justify-center">
             <button type="submit" className="p-3 bg-green-500 text-white rounded hover:bg-green-600 transition">
               <PlusIcon className="h-6 w-6" />
