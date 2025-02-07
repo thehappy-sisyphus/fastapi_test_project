@@ -125,7 +125,7 @@ const handleDelete = (itemId) => {
           {/* Submit Button */}
           <div className="flex justify-center">
             <button type="submit" className="p-3 bg-green-500 text-white rounded hover:bg-green-600 transition">
-              <PlusIcon className="h-6 w-6" />
+              {editingItem ?  <PencilIcon className="h-6 w-6" /> : <PlusIcon className="h-6 w-6" />}
             </button>
           </div>
         </form>
