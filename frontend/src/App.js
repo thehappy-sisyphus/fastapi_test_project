@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PencilIcon, TrashIcon, PlusIcon } from '@heroicons/react/solid';
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -10,7 +11,7 @@ function App() {
 
   // Fetch items from FastAPI
   useEffect(() => {
-    fetch("https://fastapi-app-1dog.onrender.com/items/")
+    fetch(`${API_URL}/items/`)
       .then((response) => response.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -27,7 +28,7 @@ function App() {
   
     if (editingItem) {
       // Update existing item
-      fetch(`https://fastapi-app-1dog.onrender.com/items/${editingItem.id}`, {
+      fetch(`${API_URL}/items/${editingItem.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
@@ -41,7 +42,7 @@ function App() {
         .catch((error) => console.error("Error updating item:", error));
     } else {
       // Add new item
-      fetch("https://fastapi-app-1dog.onrender.com/items/", {
+      fetch(`${API_URL}/items/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newItem),
@@ -65,7 +66,7 @@ const handleEdit = (item) => {
 
 // Handle Delete Button Click
 const handleDelete = (itemId) => {
-  fetch(`https://fastapi-app-1dog.onrender.com/items/${itemId}`, {
+  fetch(`${API_URL}/items/${itemId}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
